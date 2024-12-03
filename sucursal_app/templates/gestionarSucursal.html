@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+    <h1>Gestión de Sucursales</h1>
+    {% load static %}
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <img class="w-50" src="{% static 'img/sucursal.jpg' %}" alt="Office Depot" style="max-width: 300px;">
+    </div>
+    <!-- Formulario de Registro de Sucursal -->
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    Ingresar Sucursal
+                    <form action="/registrarSucursal/" method="POST"> {% csrf_token %}
+                        <div class="form-group py-2">
+                            <input type="text" id="txtcodigo" name="txtcodigo"
+                            placeholder="Código Sucursal" minlenght="1" maxlenght="6" required class="form-control">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="txtnombre" name="txtnombre"
+                            placeholder="Nombre Sucursal" minlenght="1" maxlenght="6" required class="form-control">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="email" id="txtcorreo" name="txtcorreo"
+                            placeholder="Correo Sucursal" minlenght="1" maxlenght="50" required class="form-control">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="txtgerente" name="txtgerente"
+                            placeholder="Gerente Sucursal" minlenght="1" maxlenght="50" required class="form-control">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="txtdireccion" name="txtdireccion"
+                            placeholder="Dirección Sucursal" minlenght="1" maxlenght="100" required class="form-control">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="txttelefono" name="txttelefono"
+                            placeholder="Teléfono Sucursal" minlenght="1" maxlenght="20" required class="form-control">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="txthorario" name="txthorario"
+                            placeholder="Horario Sucursal" minlenght="1" maxlenght="50" required class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Ingresar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Listado de Sucursales -->
+        <div class="col-sm-12 col-md-8 col-xl-8">
+            <h4>Sucursales Registradas</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Gerente</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Horario</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sucursal in sucursales %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ sucursal.codigo }}</td>
+                            <td>{{ sucursal.nombre }}</td>
+                            <td>{{ sucursal.correo }}</td>
+                            <td>{{ sucursal.gerente }}</td>
+                            <td>{{ sucursal.direccion }}</td>
+                            <td>{{ sucursal.telefono }}</td>
+                            <td>{{ sucursal.horario }}</td>
+                            <td>
+                                <!-- Botón de edición -->
+                                <a href="/seleccionarSucursal/{{ sucursal.codigo }}" class="btn btn-info">Editar</a>
+                                <!-- Botón de eliminar -->
+                                <a href="/borrarSucursal/{{ sucursal.codigo }}" class="btn btn-danger">Borrar</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center">No hay órdenes registradas.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

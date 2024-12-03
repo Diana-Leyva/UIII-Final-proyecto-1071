@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h2>Editar Sucursal</h2>
+        <form action="/editarSucursal/{{ sucursal.codigo }}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="txtcodigo" class="form-control" value="{{ sucursal.codigo }}" readonly>
+            </div>
+            <div class="form-group">
+                <input type="text" name="txtnombre" class="form-control" value="{{ sucursal.nombre }}" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="txtcorreo" class="form-control" value="{{ sucursal.correo }}" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="txtgerente" class="form-control" value="{{ sucursal.gerente }}" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="txtdireccion" class="form-control" value="{{ sucursal.direccion }}" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="txttelefono" class="form-control" value="{{ sucursal.telefono }}" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="txthorario" class="form-control" value="{{ sucursal.horario }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Guardar Cambios</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
