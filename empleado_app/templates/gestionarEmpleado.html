@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+    <h1>Gestión de Empleados</h1>
+
+    <!-- Formulario de registro de empleado -->
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    Ingresar Empleado
+                    <form action="/registrarEmpleado/" method="post"> {% csrf_token %}
+                        <div class="form-group py-2">
+                            <input type="text" id="txtcodigo" name="txtcodigo" required class="form-control" 
+                            placeholder="Código del empleado">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="txtnombre" name="txtnombre" required class="form-control" 
+                            placeholder="Nombre del empleado">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="txttelefono" name="txttelefono" required class="form-control" 
+                            placeholder="Teléfono del empleado">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="txtdireccion" name="txtdireccion" required class="form-control" 
+                            placeholder="Dirección del empleado">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="email" id="txtcorreo" name="txtcorreo" required class="form-control" 
+                            placeholder="Correo del empleado">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="numturno" name="numturno" required class="form-control" 
+                            placeholder="Turno del empleado">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="numposicion" name="numposicion" required class="form-control"
+                            placeholder="Posición del empleado">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Registrar Empleado</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla para listar los empleados -->
+        <div class="col-sm-12 col-md-8 col-xl-8">
+            <h4>Lista de Empleados</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th>Correo</th>
+                        <th>Turno</th>
+                        <th>Posición</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for empleado in los_empleados %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ empleado.codigo }}</td>
+                            <td>{{ empleado.nombre }}</td>
+                            <td>{{ empleado.telefono }}</td>
+                            <td>{{ empleado.direccion }}</td>
+                            <td>{{ empleado.correo }}</td>
+                            <td>{{ empleado.turno }}</td>
+                            <td>{{ empleado.posicion }}</td>
+                            <td>
+                                <a href="/seleccionarEmpleado/{{ empleado.codigo }}" class="btn btn-info">Editar</a>
+                                <a href="/borrarEmpleado/{{ empleado.codigo }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este empleado?');">Borrar</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center">No hay empleados registrados.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
