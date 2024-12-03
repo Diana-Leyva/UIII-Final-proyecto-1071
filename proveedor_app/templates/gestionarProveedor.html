@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+    <h1>Gestión de Proveedores</h1>
+
+    <!-- Formulario de Registro de Proveedor -->
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    Ingresar Proveedor
+                    <form action="/registrarProveedor/" method="POST"> {% csrf_token %}
+                        <div class="form-group py-2">
+                            <input type="text" id="txtcodigo" name="txtcodigo"
+                            placeholder="Código Proveedor" minlenght="1" maxlenght="6" required class="form-control">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="txtnombre" name="txtnombre"
+                            placeholder="Nombre Proveedor" minlenght="1" maxlenght="6" required class="form-control">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="txttelefono" name="txttelefono"
+                            placeholder="Teléfono Proveedor" minlenght="1" maxlenght="20" class="form-control"> 
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="email" id="txtcorreo" name="txtcorreo"
+                            placeholder="Correo Proveedor" minlenght="1" maxlenght="50" class="form-control">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="text" id="txtdireccion" name="txtdireccion"
+                            placeholder="Dirección Proveedor" minlenght="1" maxlenght="100" class="form-control">
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="url" id="txtpaginaweb" name="txtpaginaweb"
+                            placeholder="Página Web Proveedor" class="form-control">
+                        </div>
+                        <div class="form-group py-2">
+                            <select class="form-control" id="txttipo" name="txttipo">
+                                <option value="1" {% if proveedor.tipo == 1 %}selected{% endif %}>Fabricante</option>
+                                <option value="2" {% if proveedor.tipo == 2 %}selected{% endif %}>Mayorista</option>
+                                <option value="3" {% if proveedor.tipo == 3 %}selected{% endif %}>Menudista</option>
+                            </select>                            
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Ingresar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Listado de Proveedores -->
+        <div class="col-sm-12 col-md-8 col-xl-8">
+            <h4>Proveedores Registrados</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Página web</th>
+                        <th scope="col">tipo</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for proveedor in proveedores %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ proveedor.codigo }}</td>
+                            <td>{{ proveedor.nombre }}</td>
+                            <td>{{ proveedor.telefono }}</td>
+                            <td>{{ proveedor.correo }}</td>
+                            <td>{{ proveedor.direccion }}</td>
+                            <td>{{ proveedor.paginaweb }}</td>
+                            <td>
+                                {% if proveedor.tipo == 1 %}
+                                    Fabricante
+                                {% elif proveedor.tipo == 2 %}
+                                    Mayorista
+                                {% elif proveedor.tipo == 3 %}
+                                    Menudista
+                                {% else %}
+                                    No definido
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="/seleccionarProveedor/{{ proveedor.codigo }}" class="btn btn-info">Editar</a>
+                                <a href="/borrarProveedor/{{ proveedor.codigo }}" class="btn btn-danger">Borrar</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">No hay proveedores registrados.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+{% endblock %}
