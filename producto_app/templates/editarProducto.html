@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block cuerpo %} 
+<div class="row"> <!--fila en editar-->
+    <div class="col-md-4 offset-md-4">
+        <h2>Editar producto</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarProducto/" method="post"> {% csrf_token %}<!--falta action -->
+                    <div class="form-group">
+                        <input type="text" id="txtidproducto" name="txtidproducto" minlenght="1" maxlenght="6" readonly required class="form-control" value="{{misproductos.idproducto}}"><br>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="txtnombre" name="txtnombre" minlenght="1" maxlenght="100" required class="form-control" value="{{misproductos.nombre}}"><br>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtidsucursal" name="txtidsucursal" minlenght="1" maxlenght="100" required class="form-control" value="{{misproductos.idsucursal}}"> <br>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtcategoria" name="txtcategoria" minlenght="1" maxlenght="6" required class="form-control" value="{{misproductos.categoria}}"> <br>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtidproveedor" name="txtidproveedor" minlenght="1" maxlenght="6" required class="form-control" value="{{misproductos.idproveedor}}"> <br>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="numtotal" name="numtotal" minlenght="1" maxlenght="6" required class="form-control" value="{{misproductos.total}}"> <br>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="numstock" name="numstock" minlenght="1" maxlenght="6" required class="form-control" value="{{misproductos.stock}}"> <br>
+                    </div>
+                    <div class="form-group py-3">
+                        <button type="submit" class="btn btn-dark"> Guardar Producto </button><br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

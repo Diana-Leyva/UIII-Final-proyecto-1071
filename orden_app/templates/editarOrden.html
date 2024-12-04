@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+<div class="row"> <!--fila en editar-->
+    <div class="col-md-4 offset-md-4">
+        <h2>Editar Orden</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarOrden/" method="POST"> {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtidorden" name="txtidorden" readonly class="form-control" value="{{ misordenes.idorden }}"><br>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="txtidcliente" name="txtidcliente" minlenght="1" maxlenght="20" required class="form-control" value="{{ misordenes.idcliente }}"><br>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="txtidempleado" name="txtidempleado" minlenght="1" maxlenght="100" required class="form-control" value="{{ misordenes.idempleado }}"><br>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="txtidsucursal" name="txtidsucursal" minlenght="1" maxlenght="20" required class="form-control" value="{{ misordenes.idsucurstxtidsucursal }}"><br>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="date" id="txtforden" name="txtforden" minlenght="1" maxlenght="20" required class="form-control" value="{{ misordenes.forden }}"><br>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="number" id="numtotal" name="numtotal" minlenght="1" maxlenght="6" required class="form-control" value="{{ misordenes.total }}"><br>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="numidproducto" name="numidproducto" minlenght="1" maxlenght="6" required class="form-control" value="{{ misordenes.idproducto }}"><br>
+                    </div>
+                    <div class="form-group py-3">
+                        <button type="submit" class="btn btn-dark">Guardar Orden</button><br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
